@@ -25,7 +25,7 @@ const cards = [
   { name: 'thor',            img: 'thor.jpg' }
 ];
 
-const memoryGame = new MemoryGame(cards);
+let memoryGame = new MemoryGame(cards);
 
 document.addEventListener("DOMContentLoaded", function(event) { 
   let html = '';
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     html += `<div class="front" style="background: url(img/${pic.img}) no-repeat"></div>`;
     html += `</div>`;
   });
-
+  
   // Add all the divs to the HTML
   document.querySelector('#memory_board').innerHTML = html;
 
@@ -43,9 +43,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
   document.querySelectorAll('.back').forEach( card => {
     card.onclick = function() {
       // TODO: write some code here
+      card.parentNode.childNodes[0].className="front";
+      card.parentNode.childNodes[1].className="back";
+      memoryGame.pickedCards.push(card);
+     
+      memoryGame.checkIfPair();
       console.log('Card clicked: ', card);
     };
   });
+/*
+  document.querySelectorAll('.front').forEach( card => {
+    card.onclick = function() {
+      // TODO: write some code here
+      card.parentNode.childNodes[0].className="back";
+      card.parentNode.childNodes[1].className="front";
+      console.log('Card clicked: ', card);
+    };
+  });*/
 });
 
 
